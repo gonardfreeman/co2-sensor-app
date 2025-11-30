@@ -16,10 +16,10 @@ export const MainLayout = () => {
   return (
     <Main>
       <Horizontal $gap="0.5rem">
-        <Button $primary onClick={handleConnect}>
+        <Button $primary onClick={handleConnect} disabled={isConnected}>
           Connect
         </Button>
-        <Button $primary onClick={handleDisconnect}>
+        <Button $primary onClick={handleDisconnect} disabled={!isConnected}>
           Disconnect
         </Button>
       </Horizontal>

@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button } from "../components/Button";
 import { Main } from "../components/Main";
 import { useBLE } from "../hooks/bleHooks";
+import { queryClient } from "../hooks/rcQuery";
 
 export const MainLayout = () => {
   const { connect } = useBLE();
@@ -12,16 +13,19 @@ export const MainLayout = () => {
     queryKey: ["humidity"],
     initialData: 0,
     enabled: false,
+    queryFn: () => queryClient.getQueryData<number>(["humidity"]) ?? 0,
   });
   const { data: temp } = useQuery({
     queryKey: ["temperature"],
     initialData: 0,
     enabled: false,
+    queryFn: () => queryClient.getQueryData<number>(["temperature"]) ?? 0,
   });
   const { data: co2 } = useQuery({
     queryKey: ["co2"],
     initialData: 0,
     enabled: false,
+    queryFn: () => queryClient.getQueryData<number>(["co2"]) ?? 0,
   });
   const handleConnect = () => {
     connectMutation.mutate();

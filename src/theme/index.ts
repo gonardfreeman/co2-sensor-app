@@ -36,12 +36,16 @@ export const theme = {
   background: "#f4f9f7", // very light greenish-white
   backgroundSecondary: "#e8f4f1", // slightly darker variant
   backgroundDark: "#0f1d19",
+  backgroundDisabled: "#a0a0a0",
+  backgroundDarkDisabled: "#555",
 
   // === Text ===
   text: "#1a1a1a", // default dark text
   textLight: "#fafafa",
   textMuted: "#6c6c6c",
   textOnPrimary: "#ffffff",
+  textDisabled: "#eee",
+  textLightDisabled: "#aaa",
 
   // === Border / Shadow ===
   border: "#d4ede7",

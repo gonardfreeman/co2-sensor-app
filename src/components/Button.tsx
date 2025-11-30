@@ -14,4 +14,16 @@ export const Button = styled.button<{ $primary?: boolean }>`
   padding: 0.25em 1em;
   border: 2px solid ${({ theme }) => theme.border};
   border-radius: 3px;
+  &:disabled {
+    background: ${(props) =>
+      props.$primary
+        ? props.theme.backgroundDisabled
+        : props.theme.backgroundDarkDisabled};
+    color: ${(props) =>
+      props.$primary
+        ? props.theme.textDisabled
+        : props.theme.textLightDisabled};
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 `;

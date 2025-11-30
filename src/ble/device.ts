@@ -2,10 +2,9 @@ import { DEVICE_NAME } from "../constants";
 import { environmentServiceUuid } from "../services";
 
 export const fetchDevice = async () => {
-  const devices = await navigator.bluetooth.getDevices();
-  const cachedDevice = devices.find((d) => d.name === DEVICE_NAME);
-  if (cachedDevice !== undefined) {
-    return cachedDevice;
+  const isAvailable = await navigator.bluetooth.getAvailability();
+  if (!isAvailable) {
+    throw Error("Bluetooth is not avaialable");
   }
   const device = await navigator.bluetooth.requestDevice({
     filters: [

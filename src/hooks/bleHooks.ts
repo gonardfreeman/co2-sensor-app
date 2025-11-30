@@ -9,6 +9,8 @@ interface BLEContextType {
   temperature: number;
   co2: number;
 
+  isConnected: boolean;
+
   connect: () => Promise<void>;
   disconnect: () => void;
 }

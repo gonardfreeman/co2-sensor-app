@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import { BLEContext } from "../hooks/bleHooks";
-import { DEVICE_NAME } from "../constants";
-import { bleConfig } from "../services";
-import { queryClient } from "../hooks/rcQuery";
 
-const environmentServiceUuid = bleConfig.services.environment.service.toUuid();
-const humUuid =
-  bleConfig.services.environment.characteristics.humidity.toUuid();
-const co2Uuid = bleConfig.services.environment.characteristics.gas.toUuid();
-const tempUuid =
-  bleConfig.services.environment.characteristics.temperature.toUuid();
+import { co2Uuid, humUuid, tempUuid } from "../services";
+import { connectToServer, fetchDevice } from "../ble";
+import { connectToService } from "../ble/services";
+import { consumeCharacteristics } from "../ble/characteristics";
 
 export const BLEProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -20,57 +15,40 @@ export const BLEProvider: React.FC<{ children: React.ReactNode }> = ({
     null
   );
 
+  const [humidity, setHumidity] = useState<number>(0);
+  const [co2, setCo2] = useState<number>(0);
+  const [temperature, setTemperature] = useState<number>(0);
+
   const connect = async () => {
-    const device = await navigator.bluetooth.requestDevice({
-      filters: [
-        {
-          name: DEVICE_NAME,
-        },
-      ],
-      optionalServices: [environmentServiceUuid],
-    });
+    const device = await fetchDevice();
     setDevice(device);
 
-    const s = await device.gatt?.connect();
-    if (!s) throw new Error("Failed to connect GATT");
-    setServer(s);
+    const gattServer = await connectToServer(device);
 
-    const envService = await s.getPrimaryService(environmentServiceUuid);
+    setServer(gattServer);
+
+    const envService = await connectToService(gattServer);
     setService(envService);
 
-    const humidityCharacteristic = await envService?.getCharacteristic(humUuid);
-    const humidityNotifications =
-      await humidityCharacteristic.startNotifications();
-    humidityNotifications.addEventListener(
-      "characteristicvaluechanged",
-      (e) => {
-        const target = e.target as BluetoothRemoteGATTCharacteristic;
-        if (!target.value) {
-          return;
-        }
-        queryClient.setQueryData(["humidity"], target.value.getUint8(0));
-      }
-    );
-
-    const tempCharacteristic = await envService?.getCharacteristic(tempUuid);
-    const tempNotifications = await tempCharacteristic.startNotifications();
-    tempNotifications.addEventListener("characteristicvaluechanged", (e) => {
-      const target = e.target as BluetoothRemoteGATTCharacteristic;
-      if (!target.value) {
-        return;
-      }
-      queryClient.setQueryData(["temperature"], target.value.getUint8(0));
+    await consumeCharacteristics({
+      service: envService,
+      characteristicsUuid: humUuid,
+      setState: setHumidity,
+      parse: (value) => value.getUint8(0),
     });
 
-    const co2Characteristic = await envService?.getCharacteristic(co2Uuid);
-    const co2Notifications = await co2Characteristic.startNotifications();
-    co2Notifications.addEventListener("characteristicvaluechanged", (e) => {
-      const target = e.target as BluetoothRemoteGATTCharacteristic;
-      if (!target.value) {
-        return;
-      }
+    await consumeCharacteristics({
+      service: envService,
+      characteristicsUuid: tempUuid,
+      setState: setTemperature,
+      parse: (value) => value.getUint8(0),
+    });
 
-      queryClient.setQueryData(["co2"], target.value.getUint16(0, true));
+    await consumeCharacteristics({
+      service: envService,
+      characteristicsUuid: co2Uuid,
+      setState: setCo2,
+      parse: (value) => value.getUint16(0, true),
     });
   };
 
@@ -81,6 +59,10 @@ export const BLEProvider: React.FC<{ children: React.ReactNode }> = ({
     setDevice(null);
     setServer(null);
     setService(null);
+
+    setHumidity(0);
+    setCo2(0);
+    setTemperature(0);
   };
 
   return (
@@ -89,6 +71,9 @@ export const BLEProvider: React.FC<{ children: React.ReactNode }> = ({
         device,
         server,
         service,
+        humidity,
+        co2,
+        temperature,
         connect,
         disconnect,
       }}

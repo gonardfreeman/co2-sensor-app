@@ -5,6 +5,10 @@ interface BLEContextType {
   server: BluetoothRemoteGATTServer | null;
   service: BluetoothRemoteGATTService | null;
 
+  humidity: number;
+  temperature: number;
+  co2: number;
+
   connect: () => Promise<void>;
   disconnect: () => void;
 }

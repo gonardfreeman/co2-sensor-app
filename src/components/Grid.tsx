@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const Horizontal = styled.div<{ $gap: string }>`
+export const Horizontal = styled.div<{ $gap?: string }>`
   display: flex;
-  gap: ${({ $gap }) => $gap};
+  gap: ${({ $gap = "0.5rem" }) => $gap};
 `;
 
 export const Vertical = styled(Horizontal)`

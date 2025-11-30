@@ -9,6 +9,8 @@ export const theme = {
   secondaryLight: "#6fa1f0",
   secondaryDark: "#325694",
 
+  blueTooth: "#0082fc",
+
   success: "#3ebf67",
   successLight: "#7add98",
   successDark: "#2c8a48",

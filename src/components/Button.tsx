@@ -10,7 +10,6 @@ export const Button = styled.button<{ $primary?: boolean }>`
     props.$primary ? props.theme.text : props.theme.textLight};
 
   font-size: 1em;
-  margin: 1em;
   padding: 0.25em 1em;
   border: 2px solid ${({ theme }) => theme.border};
   border-radius: 3px;

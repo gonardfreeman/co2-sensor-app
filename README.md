@@ -34,10 +34,24 @@ More about supported browsers [here](https://caniuse.com/?search=navigator.bluet
 
 ---
 
-## | [Connect] / [Disconnect] |
+| [Connect] / [Disconnect] |
 
 ### Optional
 
 ---
 
-## | [Connect] / [Disconnect] |
+---
+
+| Full Graphs |
+| CO₂ (ppm) ──▁▂▃▂▁▂▃▁ |
+| Temp (°C) ──▁▂▃▂▁▂▃▁ |
+| Humidity (%) ──▁▂▃▂▁▂▃▁ |
+
+---
+
+## Future state
+
+[] cards with each reading
+[] icons for each card
+[] store data into DB
+[] graphs for history data

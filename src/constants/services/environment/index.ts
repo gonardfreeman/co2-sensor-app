@@ -1,0 +1,1 @@
+export const ENVIRONMENT_SERVICE = 0x200;

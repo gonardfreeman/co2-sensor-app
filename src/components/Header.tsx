@@ -7,6 +7,6 @@ export const Header = styled.header`
   right: 0;
   top: 0;
   height: 2.5rem;
-  box-shadow: ${({ theme }) => theme.shadow};
-  background-color: ${({ theme }) => theme.background};
+  box-shadow: ${({ theme }) => theme.shadows.surface};
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;

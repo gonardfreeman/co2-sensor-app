@@ -1,12 +1,12 @@
-import { Vertical } from "../components/Grid";
+import { Horizontal, Vertical } from "../components/Grid";
 import { Main } from "../components/Main";
 import { Code } from "../components/Text";
 import { useBLE } from "../hooks/bleHooks";
 import { BleActions } from "./BleActionsLayout";
+import { Co2Sensor, HumiditySensor, TemperatureSensor } from "./sensors";
 
 export const MainLayout = () => {
   const { isConnected, humidity, temperature, co2 } = useBLE();
-
   return (
     <Main>
       <Vertical $gap="0.5rem">
@@ -20,7 +20,13 @@ export const MainLayout = () => {
         {!isConnected && (
           <Code>Device not connected, please click Connect button</Code>
         )}
+
         <BleActions />
+        <Horizontal $gap="0.5rem;">
+          <Co2Sensor />
+          <HumiditySensor />
+          <TemperatureSensor />
+        </Horizontal>
       </Vertical>
     </Main>
   );

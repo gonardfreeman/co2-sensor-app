@@ -1,4 +1,5 @@
 import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { HeaderLayout } from "./HeaderLayout";
 import { MainLayout } from "./MainLayout";
@@ -17,6 +18,7 @@ function App() {
           <HeaderLayout />
           <MainLayout />
         </ThemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </BLEProvider>
   );

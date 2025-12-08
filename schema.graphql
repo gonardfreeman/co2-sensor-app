@@ -1,5 +1,6 @@
 schema {
   query: Query
+  mutation: Mutation
 }
 
 input FloatFilterInput {
@@ -14,9 +15,13 @@ input FloatFilterInput {
   lte: Float
 }
 
+type Mutation {
+  createReading(sensor_id: String!, value: Int!): reading!
+}
+
 type Query {
   reading(params: ReadingInputParams): [reading!]!
-  sensor: [sensor!]!
+  sensor(name: String!): [sensor!]!
   unit(params: UnitInputParams): [unit!]!
 }
 
@@ -34,22 +39,22 @@ input UnitInputParams {
 }
 
 type reading {
-  id: Int!
+  id: ID!
   sensor: sensor!
-  sensor_id: Int!
+  sensor_id: String!
   value: Int!
 }
 
 type sensor {
-  id: Int!
+  id: ID!
   name: String!
   readings: [[reading!]!]
   unit: unit!
-  unit_id: Int!
+  unit_id: String!
 }
 
 type unit {
-  id: Int!
+  id: ID!
   label: String!
   name: String!
   sensor: sensor

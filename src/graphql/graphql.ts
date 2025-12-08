@@ -28,6 +28,17 @@ export type FloatFilterInput = {
   lte?: InputMaybe<Scalars['Float']['input']>;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  createReading: Reading;
+};
+
+
+export type MutationCreateReadingArgs = {
+  sensor_id: Scalars['String']['input'];
+  value: Scalars['Int']['input'];
+};
+
 export type Query = {
   __typename?: 'Query';
   reading: Array<Reading>;
@@ -38,6 +49,11 @@ export type Query = {
 
 export type QueryReadingArgs = {
   params?: InputMaybe<ReadingInputParams>;
+};
+
+
+export type QuerySensorArgs = {
+  name: Scalars['String']['input'];
 };
 
 
@@ -60,24 +76,24 @@ export type UnitInputParams = {
 
 export type Reading = {
   __typename?: 'reading';
-  id: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
   sensor: Sensor;
-  sensor_id: Scalars['Int']['output'];
+  sensor_id: Scalars['String']['output'];
   value: Scalars['Int']['output'];
 };
 
 export type Sensor = {
   __typename?: 'sensor';
-  id: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   readings?: Maybe<Array<Array<Reading>>>;
   unit: Unit;
-  unit_id: Scalars['Int']['output'];
+  unit_id: Scalars['String']['output'];
 };
 
 export type Unit = {
   __typename?: 'unit';
-  id: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
   label: Scalars['String']['output'];
   name: Scalars['String']['output'];
   sensor?: Maybe<Sensor>;
@@ -86,7 +102,14 @@ export type Unit = {
 export type ReadingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ReadingsQuery = { __typename?: 'Query', reading: Array<{ __typename?: 'reading', id: number, value: number, sensor: { __typename?: 'sensor', name: string, id: number } }> };
+export type ReadingsQuery = { __typename?: 'Query', reading: Array<{ __typename?: 'reading', id: string, value: number, sensor: { __typename?: 'sensor', name: string, id: string } }> };
+
+export type SensorQueryVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+
+export type SensorQuery = { __typename?: 'Query', sensor: Array<{ __typename?: 'sensor', id: string, name: string, unit: { __typename?: 'unit', id: string, name: string, label: string } }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -119,3 +142,16 @@ export const ReadingsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ReadingsQuery, ReadingsQueryVariables>;
+export const SensorDocument = new TypedDocumentString(`
+    query Sensor($name: String!) {
+  sensor(name: $name) {
+    id
+    name
+    unit {
+      id
+      name
+      label
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<SensorQuery, SensorQueryVariables>;

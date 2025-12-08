@@ -16,15 +16,21 @@ import * as types from './graphql';
  */
 type Documents = {
     "\n  query Readings {\n    reading {\n      id\n      value\n      sensor {\n        name\n        id\n      }\n    }\n  }\n": typeof types.ReadingsDocument,
+    "\n  query Sensor($name: String!) {\n    sensor(name: $name) {\n      id\n      name\n      unit {\n        id\n        name\n        label\n      }\n    }\n  }\n": typeof types.SensorDocument,
 };
 const documents: Documents = {
     "\n  query Readings {\n    reading {\n      id\n      value\n      sensor {\n        name\n        id\n      }\n    }\n  }\n": types.ReadingsDocument,
+    "\n  query Sensor($name: String!) {\n    sensor(name: $name) {\n      id\n      name\n      unit {\n        id\n        name\n        label\n      }\n    }\n  }\n": types.SensorDocument,
 };
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query Readings {\n    reading {\n      id\n      value\n      sensor {\n        name\n        id\n      }\n    }\n  }\n"): typeof import('./graphql').ReadingsDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query Sensor($name: String!) {\n    sensor(name: $name) {\n      id\n      name\n      unit {\n        id\n        name\n        label\n      }\n    }\n  }\n"): typeof import('./graphql').SensorDocument;
 
 
 export function graphql(source: string) {

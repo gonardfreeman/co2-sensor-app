@@ -1,10 +1,12 @@
 import { SensorProvider } from "../../contexts/sensorContext";
-import { PrevReading } from "../PrevReading";
+import { useBLE } from "../../hooks/bleHooks";
+import { Reading } from "../Reading";
 
 export const TemperatureSensor = () => {
+  const { temperature } = useBLE();
   return (
     <SensorProvider sensorName="temperature_sensor">
-      <PrevReading />
+      <Reading value={temperature} />
     </SensorProvider>
   );
 };

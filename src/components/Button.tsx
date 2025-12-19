@@ -1,6 +1,7 @@
+import { Button as BaseButton } from "@base-ui/react/button";
 import styled from "styled-components";
 
-export const Button = styled.button<{ $primary?: boolean }>`
+export const Button = styled(BaseButton)<{ $primary?: boolean }>`
   /* Adapt the colors based on primary prop */
   background: ${(props) =>
     props.$primary ? props.theme.colors.primary : props.theme.colors.secondary};

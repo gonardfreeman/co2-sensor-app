@@ -13,6 +13,7 @@ export const lightTheme: DefaultTheme = {
     // Background
     bg: "#FFFFFF",
     bgSecondary: "#F8F9FA",
+    bgSecondaryDarker: "#EEF1F4",
     border: "#E2E8F0",
 
     // Text

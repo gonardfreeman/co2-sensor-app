@@ -13,6 +13,7 @@ export const darkTheme: DefaultTheme = {
     // Background
     bg: "#0F172A", // main dark
     bgSecondary: "#1E293B", // cards / surfaces
+    bgSecondaryDarker: "#273449",
     border: "#2D3A4D",
 
     // Text

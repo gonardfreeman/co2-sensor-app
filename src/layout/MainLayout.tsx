@@ -5,7 +5,13 @@ import { Code } from "../components/Text";
 import { useBLE } from "../hooks/bleHooks";
 import { BleActions } from "./BleActionsLayout";
 import { Co2Sensor, HumiditySensor, TemperatureSensor } from "./sensors";
-import { TabRoot, TabList, TabPanel, Tab } from "../components/tabs/Tab";
+import {
+  TabRoot,
+  TabList,
+  TabPanel,
+  Tab,
+  TabIndicator,
+} from "../components/tabs/Tab";
 
 export const MainLayout = () => {
   const { isConnected } = useBLE();
@@ -15,6 +21,7 @@ export const MainLayout = () => {
         <TabList>
           <Tab value="overview">Overview</Tab>
           <Tab value="historicData">Historic Data</Tab>
+          <TabIndicator />
         </TabList>
         <TabPanel value="overview">
           <Vertical $gap="0.5rem">

@@ -10,9 +10,10 @@ export const TabList = styled(Tabs.List)`
   display: flex;
   position: relative;
   z-index: 0;
-  padding-inline: 0.25rem;
+  padding-inline: 0.85rem;
+  padding-block: 0.85rem;
   gap: 0.25rem;
-  box-shadow: ${({ theme }) => theme.shadows.md};
+  box-shadow: ${({ theme }) => theme.shadows.surface};
 `;
 
 export const Tab = styled(Tabs.Tab)`
@@ -22,12 +23,12 @@ export const Tab = styled(Tabs.Tab)`
   border: 0;
   margin: 0;
   outline: 0;
-  background-color: ${({ theme }) => theme.colors.primary};
   appearance: none;
-  color: ${({ theme }) => theme.colors.textOpposite};
+  background: none;
+  color: ${({ theme }) => theme.colors.textPrimary};
   font-family: inherit;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
   font-weight: 500;
   user-select: none;
   white-space: nowrap;
@@ -37,20 +38,18 @@ export const Tab = styled(Tabs.Tab)`
   height: 2rem;
 
   &[data-active] {
-    color: ${({ theme }) => theme.colors.textOpposite};
-    background-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.textPrimary};
 
     @media (hover: hover) {
       &:hover {
-        background-color: ${({ theme }) => theme.colors.secondaryHover};
+        color: ${({ theme }) => theme.colors.textMuted};
       }
     }
   }
 
   @media (hover: hover) {
     &:hover {
-      color: ${({ theme }) => theme.colors.textOpposite};
-      background-color: ${({ theme }) => theme.colors.primaryHover};
+      color: ${({ theme }) => theme.colors.textMuted};
     }
   }
 
@@ -72,9 +71,10 @@ export const TabPanel = styled(Tabs.Panel)`
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 8rem;
   outline: 0;
+  padding: 0 0.85rem;
 
   &:focus-visible {
     outline: 2px solid ${({ theme }) => theme.colors.outline};
@@ -85,4 +85,19 @@ export const TabPanel = styled(Tabs.Panel)`
   &[hidden] {
     display: none;
   }
+`;
+
+export const TabIndicator = styled(Tabs.Indicator)`
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 50%;
+  translate: var(--active-tab-left) -50%;
+  width: var(--active-tab-width);
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  background-color: ${({ theme }) => theme.colors.primary65};
+  transition-property: translate, width;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
 `;

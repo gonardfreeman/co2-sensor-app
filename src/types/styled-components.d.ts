@@ -5,9 +5,13 @@ declare module "styled-components" {
     mode: "light" | "dark";
     colors: {
       primary: string;
-      primaryHover: string;
+      primary85: string;
+      primary65: string;
+      primary45: string;
       secondary: string;
-      secondaryHover: string;
+      secondary85: string;
+      secondary65: string;
+      secondary45: string;
       tertiary: string;
       bg: string;
       bgSecondary: string;

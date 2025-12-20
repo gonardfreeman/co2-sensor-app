@@ -23,7 +23,7 @@ export const Button = styled(BaseButton)<{ $primary?: boolean }>`
   @media (hover: hover) {
     &:hover:not([data-disabled]) {
       background-color: ${({ theme, $primary = true }) =>
-        $primary ? theme.colors.primaryHover : theme.colors.secondaryHover};
+        $primary ? theme.colors.primary85 : theme.colors.secondary85};
     }
   }
 

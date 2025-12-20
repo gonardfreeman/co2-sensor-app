@@ -7,9 +7,13 @@ export const darkTheme: DefaultTheme = {
   colors: {
     // Brand (dark-optimized tones)
     primary: "oklch(0.704 0.159 252.2)",
-    primaryHover: "oklch(0.704 0.159 252.2 / 5%)",
+    primary85: "oklch(0.704 0.159 252.2 / 85%)",
+    primary65: "oklch(0.704 0.159 252.2 / 65%)",
+    primary45: "oklch(0.704 0.159 252.2 / 45%)",
     secondary: "oklch(0.826 0.126 64.2)",
-    secondaryHover: "oklch(0.826 0.126 64.2 / 5% )",
+    secondary85: "oklch(0.826 0.126 64.2 / 85% )",
+    secondary65: "oklch(0.826 0.126 64.2 / 65% )",
+    secondary45: "oklch(0.826 0.126 64.2 / 65% )",
     tertiary: "oklch(0.820 0.129 178.1)",
 
     // Background

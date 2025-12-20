@@ -5,27 +5,38 @@ import { Code } from "../components/Text";
 import { useBLE } from "../hooks/bleHooks";
 import { BleActions } from "./BleActionsLayout";
 import { Co2Sensor, HumiditySensor, TemperatureSensor } from "./sensors";
+import { TabRoot, TabList, TabPanel, Tab } from "../components/tabs/Tab";
 
 export const MainLayout = () => {
   const { isConnected } = useBLE();
   return (
     <Main>
-      <Vertical $gap="0.5rem">
-        {isConnected && (
-          <>
-            <Horizontal $gap="0.5rem;">
-              <Co2Sensor />
-              <HumiditySensor />
-              <TemperatureSensor />
-            </Horizontal>
-          </>
-        )}
-        {!isConnected && (
-          <Code>Device not connected, please click Connect button</Code>
-        )}
-        <BleActions />
-        <SensorTable />
-      </Vertical>
+      <TabRoot defaultValue="overview">
+        <TabList>
+          <Tab value="overview">Overview</Tab>
+          <Tab value="historicData">Historic Data</Tab>
+        </TabList>
+        <TabPanel value="overview">
+          <Vertical $gap="0.5rem">
+            {isConnected && (
+              <>
+                <Horizontal $gap="0.5rem;">
+                  <Co2Sensor />
+                  <HumiditySensor />
+                  <TemperatureSensor />
+                </Horizontal>
+              </>
+            )}
+            {!isConnected && (
+              <Code>Device not connected, please click Connect button</Code>
+            )}
+            <BleActions />
+          </Vertical>
+        </TabPanel>
+        <TabPanel value="historicData">
+          <SensorTable params={{ columns: [], data: [] }} />
+        </TabPanel>
+      </TabRoot>
     </Main>
   );
 };

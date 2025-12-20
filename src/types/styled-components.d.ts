@@ -5,7 +5,9 @@ declare module "styled-components" {
     mode: "light" | "dark";
     colors: {
       primary: string;
+      primaryHover: string;
       secondary: string;
+      secondaryHover: string;
       tertiary: string;
       bg: string;
       bgSecondary: string;
@@ -14,6 +16,8 @@ declare module "styled-components" {
       textPrimary: string;
       textSecondary: string;
       textMuted: string;
+      textOpposite: string;
+      outline: string;
     };
     disabled: {
       text: string;

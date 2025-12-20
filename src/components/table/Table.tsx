@@ -42,9 +42,11 @@ interface TableData<IColumns, IData> {
   data: Array<IData>;
 }
 
-export function SensorTable<IColumns, IData>(
-  params: TableData<IColumns, IData>
-) {
+export function SensorTable<IColumns, IData>({
+  params,
+}: {
+  params: TableData<IColumns, IData>;
+}) {
   console.log(params);
   return (
     <Table>

@@ -5,3 +5,8 @@ export const BASE_UUID = [
   0x00, 0x68, 0xef,
 ];
 export const DEVICE_NAME = "co2_sens";
+export const MAX_LEVEL = {
+  gas: 1200,
+  temperature: 100,
+  humidity: 100,
+};

@@ -29,11 +29,25 @@ export const darkTheme: DefaultTheme = {
     textOpposite: "oklch(0 0 0)",
 
     outline: "oklch(69% 50% 264deg)",
+    white: "oklch(0 0 0)",
   },
   disabled: {
     text: "oklch(0.551 0.023 264.4)",
     bg: "oklch(0.373 0.031 259.7)",
     border: "oklch(0.446 0.026 256.8)",
     icon: "oklch(0.465 0.021 256.4)",
+  },
+  grayScale: {
+    50: "oklch(17% 0.25% 264deg)",
+    100: "oklch(28% 0.75% 264deg / 65%)",
+    200: "oklch(29% 0.75% 264deg / 80%)",
+    300: "oklch(35% 0.75% 264deg / 80%)",
+    400: "oklch(47% 0.875% 264deg / 80%)",
+    500: "oklch(64% 1% 264deg / 80%)",
+    600: "oklch(82% 1% 264deg / 80%)",
+    700: "oklch(92% 1.125% 264deg / 80%)",
+    800: "oklch(93% 0.875% 264deg / 85%)",
+    900: "oklch(95% 0.5% 264deg / 90%)",
+    950: "oklch(94% 0.375% 264deg / 95%)",
   },
 };

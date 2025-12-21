@@ -1,23 +1,40 @@
+import { Flex, Switch, Text } from "@radix-ui/themes";
 import { BluetoothIcon } from "../components/BluetoothIcon";
 import { Header } from "../components/Header";
 
-import { NavHorizontal } from "../components/Nav";
-import { Code, Heading1 } from "../components/Text";
+import { Heading1 } from "../components/Text";
 import { useBLE } from "../hooks/bleHooks";
 
 export const HeaderLayout = () => {
-  const { isConnected } = useBLE();
+  const { connect, disconnect, isConnected, isConnecting } = useBLE();
+  const handleToggleBluetooth = async () => {
+    if (isConnected) {
+      disconnect();
+      return;
+    }
+    await connect();
+  };
   return (
     <Header>
-      <NavHorizontal $margin="0 1.25rem" $isSpread>
-        <NavHorizontal>
+      <Flex justify="between" p="4">
+        <Flex>
           <Heading1>Sensor</Heading1>
-        </NavHorizontal>
-        <NavHorizontal>
-          <BluetoothIcon $isConnected={isConnected} />
-          <Code>{isConnected ? "Connected" : "Disconnected"}</Code>
-        </NavHorizontal>
-      </NavHorizontal>
+        </Flex>
+        <Flex aria-label={isConnected ? "Connected" : "Disconnected"}>
+          <Flex gap="2" align="center">
+            <Switch
+              size="1"
+              checked={isConnected}
+              disabled={isConnecting}
+              onClick={handleToggleBluetooth}
+            />
+            <Text color={isConnected ? "blue" : "gray"}>
+              {isConnected ? "On" : "Off"}
+            </Text>
+            <BluetoothIcon $isConnected={isConnected} />
+          </Flex>
+        </Flex>
+      </Flex>
     </Header>
   );
 };

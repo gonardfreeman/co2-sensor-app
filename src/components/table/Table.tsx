@@ -22,13 +22,20 @@ const TableHead = styled.th`
   border: 1px solid ${({ theme }) => theme.colors.border};
   background-color: ${({ theme }) => theme.colors.bgSecondaryDarker};
 `;
-const TableRow = styled.tr`
+
+const BaseRow = styled.tr`
+  font-family: inherit;
+  padding: 0.25rem 0.5rem;
+`;
+
+const TableRow = styled(BaseRow)`
   font-family: inherit;
   padding: 0.25rem 0.5rem;
   &:nth-child(even) {
     background-color: ${({ theme }) => theme.colors.bgSecondary};
   }
 `;
+
 const TableCell = styled.td`
   margin: 0;
   text-align: left;
@@ -37,45 +44,48 @@ const TableCell = styled.td`
   border: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
-interface TableData<IColumns, IData> {
-  columns: Array<IColumns>;
-  data: Array<IData>;
+interface Column {
+  name: string;
+  label: string;
 }
 
-export function SensorTable<IColumns, IData>({
-  params,
-}: {
-  params: TableData<IColumns, IData>;
-}) {
-  console.log(params);
+export interface ReadingData {
+  co2: number;
+  temp: number;
+  humidity: number;
+}
+interface TableData {
+  columns: Array<Column>;
+  data: Array<ReadingData>;
+}
+
+const Head = ({ columns }: { columns: Array<Column> }) =>
+  columns.map((col) => <TableHead key={col.name}>{col.label}</TableHead>);
+
+const Body = ({ data }: { data: Array<ReadingData> }) =>
+  data.map((d) => <DataRow row={d} />);
+
+const DataRow = ({ row }: { row: ReadingData }) => {
+  return (
+    <TableRow>
+      <TableCell>{row.co2}</TableCell>
+      <TableCell>{row.temp}</TableCell>
+      <TableCell>{row.humidity}</TableCell>
+    </TableRow>
+  );
+};
+
+export function SensorTable({ params }: { params: TableData }) {
+  const { columns, data } = params;
   return (
     <Table>
       <TableHeader>
-        <TableHead>Header</TableHead>
-        <TableHead>Header1</TableHead>
-        <TableHead>Header2</TableHead>
+        <BaseRow>
+          <Head columns={columns} />
+        </BaseRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          <TableCell>Data</TableCell>
-          <TableCell>Data</TableCell>
-          <TableCell>Data</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Data</TableCell>
-          <TableCell>Data</TableCell>
-          <TableCell>Data</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Data</TableCell>
-          <TableCell>Data</TableCell>
-          <TableCell>Data</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Data</TableCell>
-          <TableCell>Data</TableCell>
-          <TableCell>Data</TableCell>
-        </TableRow>
+        <Body data={data} />
       </TableBody>
     </Table>
   );

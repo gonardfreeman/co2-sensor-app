@@ -1,20 +1,31 @@
+import { saveReading } from "../../hooks/saveReadings";
+
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
-type ConsumeCharacteristicsParam<T> = {
+export interface Characteristic {
+  id: string;
+  name: string;
+  unit: string;
+}
+
+type ConsumeCharacteristicsParam = {
   service: BluetoothRemoteGATTService;
-  characteristicsUuid: string;
-  setState: SetState<T>;
-  parse: (dataView: DataView) => T;
+  characteristic: Characteristic;
+  setState: SetState<number>;
+  parse: (dataView: DataView) => number;
 };
 
-export const consumeCharacteristics = async <T>({
+export const consumeCharacteristics = async ({
   service,
-  characteristicsUuid,
+  characteristic,
   parse,
   setState,
-}: ConsumeCharacteristicsParam<T>) => {
-  const characteristic = await service?.getCharacteristic(characteristicsUuid);
-  const characteristicNotification = await characteristic.startNotifications();
+}: ConsumeCharacteristicsParam) => {
+  const characteristicService = await service?.getCharacteristic(
+    characteristic.id
+  );
+  const characteristicNotification =
+    await characteristicService.startNotifications();
   characteristicNotification.addEventListener(
     "characteristicvaluechanged",
     (e) => {
@@ -22,7 +33,9 @@ export const consumeCharacteristics = async <T>({
       if (!target.value) {
         return;
       }
-      setState(parse(target.value));
+      const value = parse(target.value);
+      setState(value);
+      saveReading({ value, characteristic_id: characteristic.id });
     }
   );
 };

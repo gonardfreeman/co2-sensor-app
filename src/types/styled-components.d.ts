@@ -1,5 +1,6 @@
 import "styled-components";
 
+type Scale = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950;
 declare module "styled-components" {
   export interface DefaultTheme {
     mode: "light" | "dark";
@@ -22,6 +23,8 @@ declare module "styled-components" {
       textMuted: string;
       textOpposite: string;
       outline: string;
+
+      white: string;
     };
     disabled: {
       text: string;
@@ -39,5 +42,6 @@ declare module "styled-components" {
       none: string;
       surface: string;
     };
+    grayScale: Record<Scale, string>;
   }
 }

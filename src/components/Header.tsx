@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-  padding: 0.75rem 0.5rem;
+  padding: 0;
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  height: 2.5rem;
+  height: auto;
   box-shadow: ${({ theme }) => theme.shadows.surface};
-  background-color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.textOpposite};
+  background-color: ${({ theme }) => theme.colors.white};
 `;

@@ -35,30 +35,26 @@ export type Mutation = {
 
 
 export type MutationCreateReadingArgs = {
-  sensor_id: Scalars['String']['input'];
+  characteristic_id: Scalars['String']['input'];
   value: Scalars['Int']['input'];
 };
 
 export type Query = {
   __typename?: 'Query';
+  characteristics: Array<Characteristic>;
   reading: Array<Reading>;
-  sensor: Array<Sensor>;
-  unit: Array<Unit>;
+};
+
+
+export type QueryCharacteristicsArgs = {
+  includeReadings?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type QueryReadingArgs = {
   params?: InputMaybe<ReadingInputParams>;
-};
-
-
-export type QuerySensorArgs = {
-  name: Scalars['String']['input'];
-};
-
-
-export type QueryUnitArgs = {
-  params?: InputMaybe<UnitInputParams>;
+  skip: Scalars['Int']['input'];
+  take: Scalars['Int']['input'];
 };
 
 export type ReadingInputParams = {
@@ -74,42 +70,41 @@ export type UnitInputParams = {
   sensor_name?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type Reading = {
-  __typename?: 'reading';
-  id: Scalars['ID']['output'];
-  sensor: Sensor;
-  sensor_id: Scalars['String']['output'];
-  value: Scalars['Int']['output'];
-};
-
-export type Sensor = {
-  __typename?: 'sensor';
+export type Characteristic = {
+  __typename?: 'characteristic';
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   readings?: Maybe<Array<Array<Reading>>>;
-  unit: Unit;
-  unit_id: Scalars['String']['output'];
+  unit: Scalars['String']['output'];
 };
 
-export type Unit = {
-  __typename?: 'unit';
+export type Reading = {
+  __typename?: 'reading';
+  characteristic_id: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  label: Scalars['String']['output'];
-  name: Scalars['String']['output'];
-  sensor?: Maybe<Sensor>;
+  value: Scalars['Int']['output'];
 };
 
-export type ReadingsQueryVariables = Exact<{ [key: string]: never; }>;
+export type AllCharacteristicsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ReadingsQuery = { __typename?: 'Query', reading: Array<{ __typename?: 'reading', id: string, value: number, sensor: { __typename?: 'sensor', name: string, id: string } }> };
+export type AllCharacteristicsQuery = { __typename?: 'Query', characteristics: Array<{ __typename?: 'characteristic', id: string, name: string, unit: string }> };
 
-export type SensorQueryVariables = Exact<{
-  name: Scalars['String']['input'];
+export type GetReadingsQueryVariables = Exact<{
+  take: Scalars['Int']['input'];
+  skip: Scalars['Int']['input'];
 }>;
 
 
-export type SensorQuery = { __typename?: 'Query', sensor: Array<{ __typename?: 'sensor', id: string, name: string, unit: { __typename?: 'unit', id: string, name: string, label: string } }> };
+export type GetReadingsQuery = { __typename?: 'Query', reading: Array<{ __typename?: 'reading', id: string, value: number, characteristic_id: string }> };
+
+export type SaveReadingMutationVariables = Exact<{
+  value: Scalars['Int']['input'];
+  characteristic_id: Scalars['String']['input'];
+}>;
+
+
+export type SaveReadingMutation = { __typename?: 'Mutation', createReading: { __typename?: 'reading', id: string, value: number, characteristic_id: string } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -130,28 +125,30 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
-export const ReadingsDocument = new TypedDocumentString(`
-    query Readings {
-  reading {
-    id
-    value
-    sensor {
-      name
-      id
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<ReadingsQuery, ReadingsQueryVariables>;
-export const SensorDocument = new TypedDocumentString(`
-    query Sensor($name: String!) {
-  sensor(name: $name) {
+export const AllCharacteristicsDocument = new TypedDocumentString(`
+    query AllCharacteristics {
+  characteristics {
     id
     name
-    unit {
-      id
-      name
-      label
-    }
+    unit
   }
 }
-    `) as unknown as TypedDocumentString<SensorQuery, SensorQueryVariables>;
+    `) as unknown as TypedDocumentString<AllCharacteristicsQuery, AllCharacteristicsQueryVariables>;
+export const GetReadingsDocument = new TypedDocumentString(`
+    query GetReadings($take: Int!, $skip: Int!) {
+  reading(take: $take, skip: $skip) {
+    id
+    value
+    characteristic_id
+  }
+}
+    `) as unknown as TypedDocumentString<GetReadingsQuery, GetReadingsQueryVariables>;
+export const SaveReadingDocument = new TypedDocumentString(`
+    mutation SaveReading($value: Int!, $characteristic_id: String!) {
+  createReading(value: $value, characteristic_id: $characteristic_id) {
+    id
+    value
+    characteristic_id
+  }
+}
+    `) as unknown as TypedDocumentString<SaveReadingMutation, SaveReadingMutationVariables>;

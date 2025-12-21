@@ -16,13 +16,12 @@ input FloatFilterInput {
 }
 
 type Mutation {
-  createReading(sensor_id: String!, value: Int!): reading!
+  createReading(characteristic_id: String!, value: Int!): reading!
 }
 
 type Query {
-  reading(params: ReadingInputParams): [reading!]!
-  sensor(name: String!): [sensor!]!
-  unit(params: UnitInputParams): [unit!]!
+  characteristics(includeReadings: Boolean): [characteristic!]!
+  reading(params: ReadingInputParams, skip: Int!, take: Int!): [reading!]!
 }
 
 input ReadingInputParams {
@@ -38,24 +37,15 @@ input UnitInputParams {
   sensor_name: String
 }
 
-type reading {
-  id: ID!
-  sensor: sensor!
-  sensor_id: String!
-  value: Int!
-}
-
-type sensor {
+type characteristic {
   id: ID!
   name: String!
   readings: [[reading!]!]
-  unit: unit!
-  unit_id: String!
+  unit: String!
 }
 
-type unit {
+type reading {
+  characteristic_id: String!
   id: ID!
-  label: String!
-  name: String!
-  sensor: sensor
+  value: Int!
 }

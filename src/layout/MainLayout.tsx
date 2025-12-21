@@ -1,10 +1,10 @@
-import { Horizontal, Vertical } from "../components/Grid";
+import { Flex, Box } from "@radix-ui/themes";
+
 import { Main } from "../components/Main";
-import { SensorTable } from "../components/table/Table";
 import { Code } from "../components/Text";
+
 import { useBLE } from "../hooks/bleHooks";
 import { BleActions } from "./BleActionsLayout";
-import { Co2Sensor, HumiditySensor, TemperatureSensor } from "./sensors";
 import {
   TabRoot,
   TabList,
@@ -13,8 +13,21 @@ import {
   TabIndicator,
 } from "../components/tabs/Tab";
 
+import { ReadingWithMeter } from "./ReadingWithMeter";
+
+import { MAX_LEVEL } from "../constants";
+import { HistoricData } from "./HistoricData";
+
 export const MainLayout = () => {
-  const { isConnected } = useBLE();
+  const {
+    isConnected,
+    co2,
+    humidity,
+    temperature,
+    humidityUnits,
+    gasUnits,
+    temperatureUnits,
+  } = useBLE();
   return (
     <Main>
       <TabRoot defaultValue="overview">
@@ -24,24 +37,43 @@ export const MainLayout = () => {
           <TabIndicator />
         </TabList>
         <TabPanel value="overview">
-          <Vertical $gap="0.5rem">
+          <Flex direction="column" mt="2" gap="1" p="2">
             {isConnected && (
               <>
-                <Horizontal $gap="0.5rem;">
-                  <Co2Sensor />
-                  <HumiditySensor />
-                  <TemperatureSensor />
-                </Horizontal>
+                <Flex gap="4">
+                  <ReadingWithMeter
+                    name="CO2"
+                    value={co2}
+                    units={gasUnits}
+                    max={MAX_LEVEL.gas}
+                  />
+                  <ReadingWithMeter
+                    name="Humidity"
+                    value={humidity}
+                    units={humidityUnits}
+                    max={MAX_LEVEL.humidity}
+                  />
+                  <ReadingWithMeter
+                    name="Temperature"
+                    value={temperature}
+                    units={temperatureUnits}
+                    max={MAX_LEVEL.temperature}
+                  />
+                </Flex>
               </>
             )}
             {!isConnected && (
-              <Code>Device not connected, please click Connect button</Code>
+              <Box>
+                <BleActions />
+                <Code>Device not connected, please click Connect button</Code>
+              </Box>
             )}
-            <BleActions />
-          </Vertical>
+          </Flex>
         </TabPanel>
         <TabPanel value="historicData">
-          <SensorTable params={{ columns: [], data: [] }} />
+          <Flex direction="column" mt="2" gap="1" p="2">
+            <HistoricData />
+          </Flex>
         </TabPanel>
       </TabRoot>
     </Main>

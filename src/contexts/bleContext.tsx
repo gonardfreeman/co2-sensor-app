@@ -5,11 +5,16 @@ import { co2Uuid, humUuid, tempUuid } from "../services";
 import { connectToServer, fetchDevice } from "../ble";
 import { connectToService } from "../ble/services";
 import { consumeCharacteristics } from "../ble/characteristics";
+import { useCharacteristics } from "../hooks/characteristicsHook";
 
-export const BLEProvider: React.FC<{ children: React.ReactNode }> = ({
+export const BleProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const charateristis = useCharacteristics();
+
   const [isConnected, setConnected] = useState<boolean>(false);
+  const [isConnecting, setIsConnecting] = useState<boolean>(false);
+
   const [device, setDevice] = useState<BluetoothDevice | null>(null);
   const [server, setServer] = useState<BluetoothRemoteGATTServer | null>(null);
   const [service, setService] = useState<BluetoothRemoteGATTService | null>(
@@ -22,6 +27,7 @@ export const BLEProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const connect = async () => {
     try {
+      setIsConnecting(true);
       const device = await fetchDevice();
       setDevice(device);
 
@@ -34,21 +40,21 @@ export const BLEProvider: React.FC<{ children: React.ReactNode }> = ({
 
       await consumeCharacteristics({
         service: envService,
-        characteristicsUuid: humUuid,
+        characteristic: charateristis[humUuid],
         setState: setHumidity,
         parse: (value) => value.getUint8(0),
       });
 
       await consumeCharacteristics({
         service: envService,
-        characteristicsUuid: tempUuid,
+        characteristic: charateristis[tempUuid],
         setState: setTemperature,
         parse: (value) => value.getUint8(0),
       });
 
       await consumeCharacteristics({
         service: envService,
-        characteristicsUuid: co2Uuid,
+        characteristic: charateristis[co2Uuid],
         setState: setCo2,
         parse: (value) => value.getUint16(0, true),
       });
@@ -57,6 +63,8 @@ export const BLEProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (error) {
       console.error(error);
       setConnected(false);
+    } finally {
+      setIsConnecting(false);
     }
   };
 
@@ -84,7 +92,11 @@ export const BLEProvider: React.FC<{ children: React.ReactNode }> = ({
         humidity,
         co2,
         temperature,
+        gasUnits: charateristis[co2Uuid].unit,
+        humidityUnits: charateristis[humUuid].unit,
+        temperatureUnits: charateristis[tempUuid].unit,
         isConnected,
+        isConnecting,
         connect,
         disconnect,
       }}

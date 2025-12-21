@@ -9,7 +9,12 @@ interface BLEContextType {
   temperature: number;
   co2: number;
 
+  gasUnits: string;
+  humidityUnits: string;
+  temperatureUnits: string;
+
   isConnected: boolean;
+  isConnecting: boolean;
 
   connect: () => Promise<void>;
   disconnect: () => void;

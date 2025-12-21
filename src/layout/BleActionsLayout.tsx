@@ -1,5 +1,4 @@
 import { Button } from "../components/Button";
-import { Horizontal } from "../components/Grid";
 import { useBLE } from "../hooks/bleHooks";
 
 export const BleActions = () => {
@@ -12,10 +11,8 @@ export const BleActions = () => {
     await connect();
   };
   return (
-    <Horizontal>
-      <Button $primary onClick={handleAction}>
-        {isConnected ? "Disconnect" : "Connect"}
-      </Button>
-    </Horizontal>
+    <Button $primary onClick={handleAction}>
+      {isConnected ? "Disconnect" : "Connect"}
+    </Button>
   );
 };

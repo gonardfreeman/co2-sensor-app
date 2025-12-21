@@ -15,22 +15,28 @@ import * as types from './graphql';
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  query Readings {\n    reading {\n      id\n      value\n      sensor {\n        name\n        id\n      }\n    }\n  }\n": typeof types.ReadingsDocument,
-    "\n  query Sensor($name: String!) {\n    sensor(name: $name) {\n      id\n      name\n      unit {\n        id\n        name\n        label\n      }\n    }\n  }\n": typeof types.SensorDocument,
+    "\n  query AllCharacteristics {\n    characteristics {\n      id\n      name\n      unit\n    }\n  }\n": typeof types.AllCharacteristicsDocument,
+    "\n  query GetReadings($take: Int!, $skip: Int!) {\n    reading(take: $take, skip: $skip) {\n      id\n      value\n      characteristic_id\n    }\n  }\n": typeof types.GetReadingsDocument,
+    "\n  mutation SaveReading($value: Int!, $characteristic_id: String!) {\n    createReading(value: $value, characteristic_id: $characteristic_id) {\n      id\n      value\n      characteristic_id\n    }\n  }\n": typeof types.SaveReadingDocument,
 };
 const documents: Documents = {
-    "\n  query Readings {\n    reading {\n      id\n      value\n      sensor {\n        name\n        id\n      }\n    }\n  }\n": types.ReadingsDocument,
-    "\n  query Sensor($name: String!) {\n    sensor(name: $name) {\n      id\n      name\n      unit {\n        id\n        name\n        label\n      }\n    }\n  }\n": types.SensorDocument,
+    "\n  query AllCharacteristics {\n    characteristics {\n      id\n      name\n      unit\n    }\n  }\n": types.AllCharacteristicsDocument,
+    "\n  query GetReadings($take: Int!, $skip: Int!) {\n    reading(take: $take, skip: $skip) {\n      id\n      value\n      characteristic_id\n    }\n  }\n": types.GetReadingsDocument,
+    "\n  mutation SaveReading($value: Int!, $characteristic_id: String!) {\n    createReading(value: $value, characteristic_id: $characteristic_id) {\n      id\n      value\n      characteristic_id\n    }\n  }\n": types.SaveReadingDocument,
 };
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Readings {\n    reading {\n      id\n      value\n      sensor {\n        name\n        id\n      }\n    }\n  }\n"): typeof import('./graphql').ReadingsDocument;
+export function graphql(source: "\n  query AllCharacteristics {\n    characteristics {\n      id\n      name\n      unit\n    }\n  }\n"): typeof import('./graphql').AllCharacteristicsDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query Sensor($name: String!) {\n    sensor(name: $name) {\n      id\n      name\n      unit {\n        id\n        name\n        label\n      }\n    }\n  }\n"): typeof import('./graphql').SensorDocument;
+export function graphql(source: "\n  query GetReadings($take: Int!, $skip: Int!) {\n    reading(take: $take, skip: $skip) {\n      id\n      value\n      characteristic_id\n    }\n  }\n"): typeof import('./graphql').GetReadingsDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation SaveReading($value: Int!, $characteristic_id: String!) {\n    createReading(value: $value, characteristic_id: $characteristic_id) {\n      id\n      value\n      characteristic_id\n    }\n  }\n"): typeof import('./graphql').SaveReadingDocument;
 
 
 export function graphql(source: string) {

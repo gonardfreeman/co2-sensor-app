@@ -38,7 +38,7 @@ export const Tab = styled(Tabs.Tab)`
   height: 2rem;
 
   &[data-active] {
-    color: ${({ theme }) => theme.colors.textPrimary};
+    color: ${({ theme }) => theme.colors.textOpposite};
 
     @media (hover: hover) {
       &:hover {
@@ -72,7 +72,7 @@ export const TabPanel = styled(Tabs.Panel)`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 8rem;
+  height: auto;
   outline: 0;
   padding: 0 0.85rem;
 
@@ -94,7 +94,7 @@ export const TabIndicator = styled(Tabs.Indicator)`
   top: 50%;
   translate: var(--active-tab-left) -50%;
   width: var(--active-tab-width);
-  height: 1.5rem;
+  height: 2rem;
   border-radius: 0.25rem;
   background-color: ${({ theme }) => theme.colors.primary65};
   transition-property: translate, width;

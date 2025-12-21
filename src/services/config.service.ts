@@ -6,9 +6,18 @@ export const bleConfig = {
     environment: {
       service: new BaseUuidService(ENVIRONMENT_SERVICE),
       characteristics: {
-        gas: new BaseUuidService(GAS),
-        humidity: new BaseUuidService(HUMIDITY),
-        temperature: new BaseUuidService(TEMPERATURE),
+        gas: {
+          uuid: new BaseUuidService(GAS),
+          sensorName: "co2_sensor",
+        },
+        humidity: {
+          uuid: new BaseUuidService(HUMIDITY),
+          sensorName: "humidity_sensor",
+        },
+        temperature: {
+          uuid: new BaseUuidService(TEMPERATURE),
+          sensorName: "temperature_sensor",
+        },
       },
     },
   },

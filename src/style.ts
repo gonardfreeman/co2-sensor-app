@@ -8,4 +8,10 @@ export const GlobalStyle = createGlobalStyle<{ $whiteColor?: boolean }>`
       font-optical-sizing: auto;
       font-style: normal;
   }
+  path {
+    stroke-width: 16;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    paint-order: stroke;
+  }
 `;

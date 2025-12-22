@@ -14,6 +14,8 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
+  DateTime: { input: any; output: any; }
 };
 
 export type FloatFilterInput = {
@@ -42,7 +44,7 @@ export type MutationCreateReadingArgs = {
 export type Query = {
   __typename?: 'Query';
   characteristics: Array<Characteristic>;
-  reading: Array<Reading>;
+  readings: Array<Reading>;
 };
 
 
@@ -51,13 +53,14 @@ export type QueryCharacteristicsArgs = {
 };
 
 
-export type QueryReadingArgs = {
+export type QueryReadingsArgs = {
   params?: InputMaybe<ReadingInputParams>;
   skip: Scalars['Int']['input'];
   take: Scalars['Int']['input'];
 };
 
 export type ReadingInputParams = {
+  characteristic_id?: InputMaybe<Scalars['String']['input']>;
   value?: InputMaybe<FloatFilterInput>;
 };
 
@@ -81,6 +84,7 @@ export type Characteristic = {
 export type Reading = {
   __typename?: 'reading';
   characteristic_id: Scalars['String']['output'];
+  created_at: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   value: Scalars['Int']['output'];
 };
@@ -93,10 +97,11 @@ export type AllCharacteristicsQuery = { __typename?: 'Query', characteristics: A
 export type GetReadingsQueryVariables = Exact<{
   take: Scalars['Int']['input'];
   skip: Scalars['Int']['input'];
+  characteristic_id: Scalars['String']['input'];
 }>;
 
 
-export type GetReadingsQuery = { __typename?: 'Query', reading: Array<{ __typename?: 'reading', id: string, value: number, characteristic_id: string }> };
+export type GetReadingsQuery = { __typename?: 'Query', readings: Array<{ __typename?: 'reading', id: string, value: number, created_at: any, characteristic_id: string }> };
 
 export type SaveReadingMutationVariables = Exact<{
   value: Scalars['Int']['input'];
@@ -135,10 +140,15 @@ export const AllCharacteristicsDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<AllCharacteristicsQuery, AllCharacteristicsQueryVariables>;
 export const GetReadingsDocument = new TypedDocumentString(`
-    query GetReadings($take: Int!, $skip: Int!) {
-  reading(take: $take, skip: $skip) {
+    query GetReadings($take: Int!, $skip: Int!, $characteristic_id: String!) {
+  readings(
+    take: $take
+    skip: $skip
+    params: {characteristic_id: $characteristic_id}
+  ) {
     id
     value
+    created_at
     characteristic_id
   }
 }

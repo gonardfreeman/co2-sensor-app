@@ -1,6 +1,5 @@
-import styled from "styled-components";
+import { type ReactNode } from "react";
 
-export const Main = styled.main`
-  padding: 0.75rem 0.5rem;
-  margin: 4.5rem 1.25rem 0 1.25rem;
-`;
+export const Main = ({ children }: { children: ReactNode | Array<ReactNode> }) => (
+  <main className="mx-auto mt-24 mb-0 w-[1200px]">{children}</main>
+);

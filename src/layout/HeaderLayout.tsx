@@ -16,7 +16,6 @@ export const HeaderLayout = () => {
   };
   return (
     <Header>
-      <div className="bg-sky-700">test</div>
       <Flex justify="between" p="4" className="p-4">
         <Flex>
           <Heading1>Sensor</Heading1>

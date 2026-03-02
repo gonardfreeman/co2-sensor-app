@@ -1,18 +1,10 @@
-import { Flex, Box } from "@radix-ui/themes";
+import { Flex, Box, Tabs } from "@radix-ui/themes";
 
 import { Main } from "../components/Main";
 import { Code } from "../components/Text";
 
 import { useBLE } from "../hooks/bleHooks";
 import { BleActions } from "./BleActionsLayout";
-import {
-  TabRoot,
-  TabList,
-  TabPanel,
-  Tab,
-  TabIndicator,
-} from "../components/tabs/Tab";
-
 import { ReadingWithMeter } from "./ReadingWithMeter";
 
 import { MAX_LEVEL } from "../constants";
@@ -30,13 +22,12 @@ export const MainLayout = () => {
   } = useBLE();
   return (
     <Main>
-      <TabRoot defaultValue="overview">
-        <TabList>
-          <Tab value="overview">Overview</Tab>
-          <Tab value="historicData">Historic Data</Tab>
-          <TabIndicator />
-        </TabList>
-        <TabPanel value="overview">
+      <Tabs.Root defaultValue="overview">
+        <Tabs.List>
+          <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+          <Tabs.Trigger value="historicData">Historic Data</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="overview">
           <Flex direction="column" mt="2" gap="1" p="2">
             {isConnected && (
               <>
@@ -69,13 +60,13 @@ export const MainLayout = () => {
               </Box>
             )}
           </Flex>
-        </TabPanel>
-        <TabPanel value="historicData">
+        </Tabs.Content>
+        <Tabs.Content value="historicData">
           <Flex direction="column" mt="2" gap="1" p="2">
             <HistoricData />
           </Flex>
-        </TabPanel>
-      </TabRoot>
+        </Tabs.Content>
+      </Tabs.Root>
     </Main>
   );
 };

@@ -5,9 +5,7 @@ type ThemeModeContext = {
   toggleDark: () => void;
 };
 
-export const ThemeModeContext = createContext<ThemeModeContext | undefined>(
-  undefined
-);
+export const ThemeModeContext = createContext<ThemeModeContext | undefined>(undefined);
 
 export const useThemeMode = () => {
   const ctx = useContext(ThemeModeContext);

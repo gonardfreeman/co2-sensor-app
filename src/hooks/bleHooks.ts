@@ -24,6 +24,8 @@ export const BLEContext = createContext<BLEContextType | undefined>(undefined);
 
 export function useBLE() {
   const ctx = useContext(BLEContext);
-  if (!ctx) throw new Error("useBLE must be used inside BLEProvider");
+  if (!ctx) {
+    throw new Error("useBLE must be used inside BLEProvider");
+  }
   return ctx;
 }

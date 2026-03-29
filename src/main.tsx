@@ -1,14 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./layout/App.tsx";
-import { ThemeContextProvider } from "./contexts/themeContext.tsx";
+import App from "./App.tsx";
 
 import "@radix-ui/themes/styles.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeContextProvider>
-      <App />
-    </ThemeContextProvider>
+    <App />
   </StrictMode>,
 );

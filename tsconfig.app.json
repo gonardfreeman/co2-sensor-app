@@ -28,7 +28,11 @@
         "name": "@0no-co/graphqlsp",
         "schema": "./schema.graphql"
       }
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src"]
 }

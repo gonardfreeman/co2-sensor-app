@@ -16,7 +16,5 @@ const SaveReading = graphql(`
   }
 `);
 
-export const saveReading = async ({
-  value,
-  characteristic_id,
-}: CreateReadingInput) => execute(SaveReading, { value, characteristic_id });
+export const saveReading = async ({ value, characteristic_id }: CreateReadingInput) =>
+  execute(SaveReading, { value, characteristic_id });

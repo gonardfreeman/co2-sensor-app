@@ -7,9 +7,7 @@ import { connectToService } from "../ble/services";
 import { consumeCharacteristics } from "../ble/characteristics";
 import { useCharacteristics } from "../hooks/characteristicsHook";
 
-export const BleProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const BleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const charateristis = useCharacteristics();
 
   const [isConnected, setConnected] = useState<boolean>(false);
@@ -17,9 +15,7 @@ export const BleProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const [device, setDevice] = useState<BluetoothDevice | null>(null);
   const [server, setServer] = useState<BluetoothRemoteGATTServer | null>(null);
-  const [service, setService] = useState<BluetoothRemoteGATTService | null>(
-    null
-  );
+  const [service, setService] = useState<BluetoothRemoteGATTService | null>(null);
 
   const [humidity, setHumidity] = useState<number>(0);
   const [co2, setCo2] = useState<number>(0);

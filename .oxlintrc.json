@@ -1,0 +1,35 @@
+{
+  "$schema": "https://oxc.rs/docs/guide/usage/linter/configuration/schema.json",
+  "env": {
+    "browser": true,
+    "es2024": true
+  },
+  "globals": {
+    "React": "readonly"
+  },
+  "plugins": ["react", "react-hooks"],
+  "rules": {
+    // General
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-undef": "error",
+    "no-console": "allow",
+
+    // Best practices
+    "eqeqeq": ["error", "always"],
+    "curly": ["error", "all"],
+    "no-var": "error",
+    "prefer-const": "error",
+
+    // React
+    "react/jsx-uses-vars": "error",
+    "react/jsx-key": "error",
+    "react/jsx-no-duplicate-props": "error",
+
+    // React 17+ (Vite uses this)
+    "react/react-in-jsx-scope": "off",
+
+    // Hooks
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}

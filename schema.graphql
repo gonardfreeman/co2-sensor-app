@@ -10,13 +10,21 @@ scalar DateTime
 
 input FloatFilterInput {
   equals: Float
-  """greater than"""
+  """
+  greater than
+  """
   gt: Float
-  """greater than or equal"""
+  """
+  greater than or equal
+  """
   gte: Float
-  """less than"""
+  """
+  less than
+  """
   lt: Float
-  """less than or equal"""
+  """
+  less than or equal
+  """
   lte: Float
 }
 
@@ -35,11 +43,17 @@ input ReadingInputParams {
 }
 
 input UnitInputParams {
-  """label of unit"""
+  """
+  label of unit
+  """
   label: String
-  """name of unit"""
+  """
+  name of unit
+  """
   name: String
-  """name of sensor"""
+  """
+  name of sensor
+  """
   sensor_name: String
 }
 

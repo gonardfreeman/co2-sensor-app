@@ -21,21 +21,15 @@ export const consumeCharacteristics = async ({
   parse,
   setState,
 }: ConsumeCharacteristicsParam) => {
-  const characteristicService = await service?.getCharacteristic(
-    characteristic.id
-  );
-  const characteristicNotification =
-    await characteristicService.startNotifications();
-  characteristicNotification.addEventListener(
-    "characteristicvaluechanged",
-    (e) => {
-      const target = e.target as BluetoothRemoteGATTCharacteristic;
-      if (!target.value) {
-        return;
-      }
-      const value = parse(target.value);
-      setState(value);
-      saveReading({ value, characteristic_id: characteristic.id });
+  const characteristicService = await service?.getCharacteristic(characteristic.id);
+  const characteristicNotification = await characteristicService.startNotifications();
+  characteristicNotification.addEventListener("characteristicvaluechanged", (e) => {
+    const target = e.target as BluetoothRemoteGATTCharacteristic;
+    if (!target.value) {
+      return;
     }
-  );
+    const value = parse(target.value);
+    setState(value);
+    saveReading({ value, characteristic_id: characteristic.id });
+  });
 };

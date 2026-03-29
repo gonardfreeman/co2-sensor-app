@@ -9,9 +9,9 @@ import { BleProvider } from "./contexts/bleContext";
 import { queryClient } from "./hooks/rcQuery";
 import { AllCharacteristicsProvider } from "./contexts/allCharacteristicsContext";
 
-import { Header } from "./features/header/Header";
 import { MainPage } from "./features/main/MainPage";
 import { History } from "./features/history/History";
+import { AppLayout } from "./components/app-layout";
 
 function App() {
   return (
@@ -20,11 +20,12 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <AllCharacteristicsProvider>
             <BleProvider>
-              <Header />
-              <Routes>
-                <Route index element=<MainPage /> />
-                <Route path="/history" element=<History /> />
-              </Routes>
+              <AppLayout>
+                <Routes>
+                  <Route index element=<MainPage /> />
+                  <Route path="/history" element=<History /> />
+                </Routes>
+              </AppLayout>
               <ReactQueryDevtools initialIsOpen={false} />
             </BleProvider>
           </AllCharacteristicsProvider>

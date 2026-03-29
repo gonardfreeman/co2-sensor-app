@@ -1,4 +1,4 @@
-import { Bluetooth, BluetoothConnected } from "lucide-react";
+import { BluetoothOff, BluetoothConnected } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { useBLE } from "@/hooks/bleHooks";
 
@@ -18,8 +18,8 @@ export function BleToggle() {
       onClick={handleToggleBle}
       disabled={isConnecting}
     >
-      {!isConnected && <Bluetooth className="group-aria-pressed/toggle:fill-foreground" />}
-      {isConnected && <BluetoothConnected className="group-aria-pressed/toggle:fill-foreground" />}
+      {!isConnected && <BluetoothOff className="group-aria-pressed/toggle:fill-foreground" />}
+      {isConnected && <BluetoothConnected />}
     </Toggle>
   );
 }

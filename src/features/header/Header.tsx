@@ -1,24 +1,34 @@
 import { NavLink, Link } from "react-router";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu";
 import { Microchip } from "lucide-react";
 import { ModeToggle } from "@/features/header/components/mode-toggle";
 import { BleToggle } from "./components/ble-toggle";
+import { HOME_LINK_CLS } from "./constants/classes";
 
 export function Header() {
   return (
     <header className="bg-background sticky top-0 z-50 w-full">
       <div className="3xl:fixed:px-0 mx-auto w-full px-6">
         <div className="3xl:fixed:container flex h-(--header-height) items-center **:data-[slot=separator]:h-4!">
-          <Link
-            to="/"
-            className="shrink-0 items-center justify-center outline-none select-none lg:flex"
-          >
+          <Link to="/" className={HOME_LINK_CLS}>
             <Microchip />
           </Link>
-          <nav className="hidden items-center gap-0 lg:flex">
-            <NavLink to="/history" end>
-              History
-            </NavLink>
-          </nav>
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <NavLink to="/history" end>
+                    History
+                  </NavLink>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
           <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
             <BleToggle />
             <ModeToggle />

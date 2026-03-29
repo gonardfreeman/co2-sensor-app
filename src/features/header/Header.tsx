@@ -1,6 +1,7 @@
 import { NavLink, Link } from "react-router";
 import { Microchip } from "lucide-react";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ModeToggle } from "@/features/header/components/mode-toggle";
+import { BleToggle } from "./components/ble-toggle";
 
 export function Header() {
   return (
@@ -19,6 +20,7 @@ export function Header() {
             </NavLink>
           </nav>
           <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
+            <BleToggle />
             <ModeToggle />
           </div>
         </div>

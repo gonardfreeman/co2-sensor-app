@@ -6,31 +6,33 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { Badge } from "@/components/ui/badge";
+
 import { useBLE } from "@/hooks/bleHooks";
-import { CO2_MAX_LEVEL } from "../constants/levels";
+import { HUMIDITY_MAX_LEVEL, HUMIDITY_MIN_LEVEL } from "../constants/levels";
 import { BadgeIcon } from "./BadgeIcon";
 import { getBadgeVariant } from "../utils/badgeVariant";
 import { getBadgeText } from "../utils/getBadgeText";
 
-export function GasReading() {
-  const { co2, isConnected } = useBLE();
-  const isNormal = co2 < CO2_MAX_LEVEL;
-  const co2Label = co2 !== 0 ? `${co2}ppm` : "-";
+export function HumidityReading() {
+  const { humidity, isConnected } = useBLE();
+  const isNormal = HUMIDITY_MIN_LEVEL < humidity && HUMIDITY_MAX_LEVEL >= humidity;
+  const humidityLabel = humidity > 0 ? `${humidity}%` : "-";
   const badgeVariant = getBadgeVariant({ isNormal, isConnected });
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>CO2 Readings</CardTitle>
+        <CardTitle>Humidity Readings</CardTitle>
         <CardAction>
           <Badge variant={badgeVariant}>
             <BadgeIcon isConnected={isConnected} isNormal={isNormal} />
-            {getBadgeText({ isConnected, isNormal, type: "co2" })}
+            {getBadgeText({ isConnected, isNormal, type: "humidity" })}
           </Badge>
         </CardAction>
-        <CardDescription>Shows real-time CO₂ from a BLE sensor.</CardDescription>
+        <CardDescription>Shows real-time humidity from a BLE sensor.</CardDescription>
       </CardHeader>
-      <CardFooter>{co2Label}</CardFooter>
+      <CardFooter>{humidityLabel}</CardFooter>
     </Card>
   );
 }

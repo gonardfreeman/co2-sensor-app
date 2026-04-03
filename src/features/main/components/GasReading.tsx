@@ -1,17 +1,9 @@
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { useBLE } from "@/hooks/bleHooks";
+
 import { CO2_MAX_LEVEL } from "../constants/levels";
-import { BadgeIcon } from "./BadgeIcon";
 import { getBadgeVariant } from "../utils/badgeVariant";
-import { getBadgeText } from "../utils/getBadgeText";
+import { ReadingBadge } from "./ReadingBadge";
+import { ReadingCard } from "./ReadingCard";
 
 export function GasReading() {
   const { co2, isConnected } = useBLE();
@@ -19,18 +11,16 @@ export function GasReading() {
   const co2Label = co2 !== 0 ? `${co2}ppm` : "-";
   const badgeVariant = getBadgeVariant({ isNormal, isConnected });
   return (
-    <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle>CO2 Readings</CardTitle>
-        <CardAction>
-          <Badge variant={badgeVariant}>
-            <BadgeIcon isConnected={isConnected} isNormal={isNormal} />
-            {getBadgeText({ isConnected, isNormal, type: "co2" })}
-          </Badge>
-        </CardAction>
-        <CardDescription>Shows real-time CO₂ from a BLE sensor.</CardDescription>
-      </CardHeader>
-      <CardFooter>{co2Label}</CardFooter>
-    </Card>
+    <ReadingCard
+      cardDescription="Shows real-time CO₂ from a BLE sensor."
+      cardTitle="CO2 Readings"
+      readingValue={co2Label}
+      badgeElement=<ReadingBadge
+        badgeVariant={badgeVariant}
+        isConnected={isConnected}
+        isNormal={isNormal}
+        type="co2"
+      />
+    />
   );
 }

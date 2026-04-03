@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { BLEContext } from "../hooks/bleHooks";
 
-import { co2Uuid, humUuid, tempUuid } from "../services";
 import { connectToServer, fetchDevice } from "../ble";
-import { connectToService } from "../ble/services";
 import { consumeCharacteristics } from "../ble/characteristics";
+import { connectToService } from "../ble/services";
+import { BLEContext } from "../hooks/bleHooks";
 import { useCharacteristics } from "../hooks/characteristicsHook";
+import { co2Uuid, humUuid, tempUuid } from "../services";
 
 export const BleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const charateristis = useCharacteristics();

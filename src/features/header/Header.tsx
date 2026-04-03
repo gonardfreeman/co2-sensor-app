@@ -1,12 +1,14 @@
-import { NavLink, Link } from "react-router";
+import { Microchip } from "lucide-react";
+import { Link, NavLink } from "react-router";
+
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { Microchip } from "lucide-react";
 import { ModeToggle } from "@/features/header/components/mode-toggle";
+
 import { BleToggle } from "./components/ble-toggle";
 import { HOME_LINK_CLS } from "./constants/classes";
 

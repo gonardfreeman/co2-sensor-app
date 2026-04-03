@@ -10,7 +10,7 @@
   "plugins": ["react", "react-hooks"],
   "rules": {
     // General
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-unused-vars": "error",
     "no-undef": "error",
     "no-console": "allow",
 

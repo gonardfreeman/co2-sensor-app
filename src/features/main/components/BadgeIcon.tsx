@@ -1,4 +1,5 @@
-import { CircleCheckBig, TriangleAlert, RadioOff } from "lucide-react";
+import { CircleCheckBig, RadioOff, TriangleAlert } from "lucide-react";
+
 import { BadgeReadingProps } from "../utils/badgeVariant";
 
 export function BadgeIcon({ isNormal, isConnected }: BadgeReadingProps) {

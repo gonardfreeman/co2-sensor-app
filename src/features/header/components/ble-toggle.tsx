@@ -1,4 +1,5 @@
-import { BluetoothOff, BluetoothConnected } from "lucide-react";
+import { BluetoothConnected, BluetoothOff } from "lucide-react";
+
 import { Toggle } from "@/components/ui/toggle";
 import { useBLE } from "@/hooks/bleHooks";
 

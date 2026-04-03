@@ -1,17 +1,14 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { BrowserRouter, Route, Routes } from "react-router";
 
-import { BrowserRouter, Routes, Route } from "react-router";
-
-import { ThemeProvider } from "./components/theme-provider";
-
-import { BleProvider } from "./contexts/bleContext";
-import { queryClient } from "./hooks/rcQuery";
-import { AllCharacteristicsProvider } from "./contexts/allCharacteristicsContext";
-
-import { MainPage } from "./features/main/MainPage";
-import { History } from "./features/history/History";
 import { AppLayout } from "./components/app-layout";
+import { ThemeProvider } from "./components/theme-provider";
+import { AllCharacteristicsProvider } from "./contexts/allCharacteristicsContext";
+import { BleProvider } from "./contexts/bleContext";
+import { History } from "./features/history/History";
+import { MainPage } from "./features/main/MainPage";
+import { queryClient } from "./hooks/rcQuery";
 
 function App() {
   return (

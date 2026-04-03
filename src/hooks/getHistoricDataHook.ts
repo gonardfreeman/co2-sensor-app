@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { execute } from "../graphql/execute";
+
 import { graphql } from "../graphql";
+import { execute } from "../graphql/execute";
 
 interface PageInfo {
   take: number;
